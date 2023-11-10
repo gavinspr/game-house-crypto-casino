@@ -1,0 +1,70 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: hsla(0, 0%, 4%, 0.75);
+  transition: opacity 0.2s;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.75rem 1rem;
+  // padding-bottom: 1.75rem;
+
+  // // height: 75px;
+  // width: 100%;
+  // background: #b70000;
+  // position: fixed;
+  // top: 0;
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    a {
+      font-size: 18px;
+      margin-right: 0.5rem;
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+
+    .highlight {
+      position: relative;
+
+      :after {
+        opacity: 0;
+        transition: opacity 0.2s;
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        filter: blur(15px);
+        background: linear-gradient(95deg, #7baff3, #3f8ef6, #0b2c56, #4e70d0);
+        background-size: 200% 200%;
+        animation: animateGlow 5s linear infinite;
+      }
+    }
+
+    .highlightSelected {
+      z-index: 5;
+
+      ::after {
+        opacity: 0.5 !important;
+      }
+    }
+  }
+}
