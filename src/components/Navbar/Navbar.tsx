@@ -1,16 +1,32 @@
-import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
+import { useAccount } from "wagmi";
+import { usePlayerContext } from "@/contexts";
+import { checkWhitelist } from "@/utils";
 
 export const Navbar = () => {
   const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
     useState(false);
   const [isConnectHighlighted, setIsConnectHighlighted] = useState(false);
 
+  const { address, isConnected } = useAccount();
+  const { setWhitelisted } = usePlayerContext();
+
+  useEffect(() => {
+    if (isConnected && address) {
+      isWhitelisted(address);
+    }
+  }, [isConnected, address]);
+
   const closeAll = () => {
     setIsNetworkSwitchHighlighted(false);
     setIsConnectHighlighted(false);
+  };
+
+  const isWhitelisted = async (address: string) => {
+    const whitelisted = await checkWhitelist(address);
+    setWhitelisted(whitelisted);
   };
 
   return (
@@ -23,22 +39,24 @@ export const Navbar = () => {
       />
       <div className={styles.header}>
         <div className={styles.logo}>
-          <h1
-          // todo: Logo
-          >
-            GameHouse
-          </h1>
+          <Link href="/">
+            <h1
+            // todo: Logo
+            >
+              GameHouse
+            </h1>
+          </Link>
         </div>
         <div className={styles.buttons}>
-          <Link href="">
-            <h2>Play</h2>
+          <Link href="/game">
+            <h2>Game</h2>
           </Link>
-          <Link href="">
+          {/* <Link href="/">
             <h2>Governance</h2>
           </Link>
-          <Link href="">
+          <Link href="/">
             <h2>Leaderboard</h2>
-          </Link>
+          </Link> */}
           <div
             onClick={closeAll}
             className={`${styles.highlight} ${

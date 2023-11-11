@@ -3,7 +3,8 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.scss";
 import Layout from "@/components/Layout";
 import { WagmiConfig } from "wagmi";
-import { wagmiConfig } from "@/config";
+import { wagmiConfig } from "@/configs";
+import { PlayerProvider } from "@/contexts";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [ready, setReady] = useState<boolean>(false);
@@ -15,9 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       {ready ? (
         <WagmiConfig config={wagmiConfig}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <PlayerProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PlayerProvider>
         </WagmiConfig>
       ) : null}
     </>

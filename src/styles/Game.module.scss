@@ -9,18 +9,14 @@
       var(--color-bg)
     ),
     radial-gradient(circle, transparent 0%, var(--color-bg) 70%);
-
   h1 {
     font-size: 1.75rem;
     font-weight: 600;
   }
-}
 
-@keyframes animateGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 200% 50%;
+  .gamesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 }

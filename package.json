@@ -8,6 +8,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@supabase/supabase-js": "^2.38.4",
 		"@types/node": "18.18.8",
 		"@types/react": "18.2.35",
 		"@types/react-dom": "18.2.14",
