@@ -1,0 +1,32 @@
+.wrap {
+  background: white;
+  width: 60vw;
+  height: 300px;
+  border-radius: 1rem;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+
+  h2 {
+  }
+
+  .playerCount {
+  }
+
+  .countDown {
+  }
+  
+  .loader {
+    // position: absolute;
+    // top: 50%;
+    margin: 2rem 0;
+  }
+
+  button {
+    // position: absolute;
+    bottom: 2rem;
+  }
+}

@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Head>
         <title>GameHouse | Crypto Gaming</title>
-        <meta name="description" content="Crypto gaming done right" />
+        <meta name="description" content="Peer 2 Peer Crypto Gaming" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

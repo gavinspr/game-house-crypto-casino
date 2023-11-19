@@ -1,32 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
-import { useAccount } from "wagmi";
-import { usePlayerContext } from "@/contexts";
-import { checkWhitelist } from "@/utils";
 
 export const Navbar = () => {
   const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
     useState(false);
   const [isConnectHighlighted, setIsConnectHighlighted] = useState(false);
 
-  const { address, isConnected } = useAccount();
-  const { setWhitelisted } = usePlayerContext();
-
-  useEffect(() => {
-    if (isConnected && address) {
-      isWhitelisted(address);
-    }
-  }, [isConnected, address]);
-
   const closeAll = () => {
     setIsNetworkSwitchHighlighted(false);
     setIsConnectHighlighted(false);
-  };
-
-  const isWhitelisted = async (address: string) => {
-    const whitelisted = await checkWhitelist(address);
-    setWhitelisted(whitelisted);
   };
 
   return (

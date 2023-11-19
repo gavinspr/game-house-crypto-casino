@@ -1,58 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import styles from "../../styles/Game.module.scss";
-import { GetServerSideProps } from "next";
-import { supabase } from "@/services";
-import { GameType } from "@/types";
-import { GameTile } from "@/components/GameTile/GameTile";
-import { camelize } from "@/utils";
+import { GameHouseGameType } from "@/types";
+import { GHLoader, GameCard } from "@/components";
+import useSWR, { useSWRConfig } from "swr";
+import { toast } from "react-toastify";
+import supabaseFetcher from "@/helpers/supabaseFetcher";
 
-type PropTypes = {
-  games: Array<GameType>;
-};
+const GameSelectorPage = () => {
+  const { getTable } = supabaseFetcher();
+  const { data: games, error } = useSWR(
+    "game_house_games",
+    getTable<GameHouseGameType>
+  );
 
-const GamePage = ({ games }: PropTypes) => {
-  console.log(games);
+  const { mutate } = useSWRConfig();
+
+  useEffect(() => {
+    mutate("game_house_games", null, { populateCache: true });
+  }, []);
+
+  useEffect(() => {
+    if (!error) return;
+
+    toast.error("Error Loading Games");
+  }, [error]);
+
   return (
     <>
       <Head>
         <title>GameHouse | Crypto Gaming</title>
-        <meta name="description" content="Peer 2 peer crypto gaming" />
+        <meta name="description" content="Peer 2 Peer Crypto Gaming" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.gamesGrid}>
-          {games.map((game: GameType) => (
-            <GameTile key={`${game.name}`} gameDetails={game} />
-          ))}
-        </div>
+        {games && games.length > 0 ? (
+          <div className={styles.gamesGrid}>
+            {games?.map((game: GameHouseGameType) => (
+              <GameCard key={`${game.name}`} gameDetails={game} />
+            ))}
+          </div>
+        ) : (
+          <GHLoader />
+        )}
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<PropTypes> = async () => {
-  const { data, error } = await supabase.from("games").select("*");
-
-  const games = data?.map((game: Record<string, any>) =>
-    camelize<GameType>(game)
-  );
-
-  if (error) {
-    console.error("Error fetching data from Supabase:", error.message);
-    return {
-      props: {
-        games: [],
-      },
-    };
-  }
-
-  return {
-    props: {
-      games: games || [],
-    },
-  };
-};
-
-export default GamePage;
+export default GameSelectorPage;

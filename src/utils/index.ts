@@ -1,2 +1,2 @@
 export * from "./camelize";
-export * from "./checkWhitelist";
+export * from "./padZero"
