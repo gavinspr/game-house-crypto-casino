@@ -16,13 +16,15 @@ const GameTypePage = () => {
     data: game,
     error,
     mutate,
-  } = useSWR("selected_game", async () =>
-    !router.query.type
-      ? null
-      : await getRowBySlug<GameHouseGameType>(
-          "game_house_games",
-          router.query.type as string
-        )
+  } = useSWR<GameHouseGameType | null | undefined, Error>(
+    "selected_game",
+    async () =>
+      !router.query.type
+        ? null
+        : await getRowBySlug<GameHouseGameType>(
+            "game_house_games",
+            router.query.type as string
+          )
   );
 
   useEffect(() => {

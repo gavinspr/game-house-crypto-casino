@@ -26,7 +26,10 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
   const { address } = useAccount();
   const { getRowBySlug } = supabaseFetcher();
 
-  const { data: gameDetails, error: gameDetailsError } = useSWR(
+  const { data: gameDetails, error: gameDetailsError } = useSWR<
+    GameHouseGameType | null | undefined,
+    Error
+  >(
     "selected_game_type",
     async () =>
       !router.query.type

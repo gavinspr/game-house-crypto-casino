@@ -12,9 +12,9 @@ export default function supabaseFetcher() {
 
     if (error) throw error;
 
-    const camelizedTable: Array<T> | undefined = data?.map(
-      (row: Record<string, any>) => camelize<T>(row)
-    );
+    const camelizedTable = data?.map((row: Record<string, any>) =>
+      camelize<T>(row)
+    ) as Array<T>;
 
     return camelizedTable;
   };
@@ -37,9 +37,9 @@ export default function supabaseFetcher() {
       throw new Error(`No data found in table ${table}`);
     }
 
-    const camelizedData: Array<T> = data?.map((row: Record<string, any>) =>
+    const camelizedData = data?.map((row: Record<string, any>) =>
       camelize<T>(row)
-    );
+    ) as Array<T>;
 
     return camelizedData[0];
   };

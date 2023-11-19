@@ -9,7 +9,7 @@ import supabaseFetcher from "@/helpers/supabaseFetcher";
 
 const GameSelectorPage = () => {
   const { getTable } = supabaseFetcher();
-  const { data: games, error } = useSWR(
+  const { data: games, error } = useSWR<Array<GameHouseGameType>, Error>(
     "game_house_games",
     getTable<GameHouseGameType>
   );

@@ -30,7 +30,10 @@ const useGetRunningGame = (uuid: string) => {
     return camelizedData[0];
   };
 
-  const { data: runningGame, error } = useSWR("running_game", fetcher);
+  const { data: runningGame, error } = useSWR<
+    RunningGameType | undefined,
+    Error
+  >("running_game", fetcher);
 
   return {
     runningGame,
