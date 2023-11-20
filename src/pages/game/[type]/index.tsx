@@ -4,37 +4,25 @@ import styles from "../../../styles/Game.module.scss"; // todo: make style sheet
 import { GameHouseGameType } from "@/types";
 import { GHLoader, GameTokenTypeTile } from "@/components";
 import { useRouter } from "next/router";
-import { findAvailableGameUUID, supabaseFetcher } from "@/helpers";
-import useSWR from "swr";
+import { findAvailableGameUUID } from "@/helpers";
 import { toast } from "react-toastify";
+import { useFetchRowBySlug } from "@/hooks";
 
 const GameTypePage = () => {
   const router = useRouter();
-  const { getRowBySlug } = supabaseFetcher();
 
-  const {
-    data: game,
-    error,
-    mutate,
-  } = useSWR<GameHouseGameType | null | undefined, Error>(
-    "selected_game",
-    async () =>
-      !router.query.type
-        ? null
-        : await getRowBySlug<GameHouseGameType>(
-            "game_house_games",
-            router.query.type as string
-          )
+  const { data: game, mutate } = useFetchRowBySlug<GameHouseGameType>(
+    "selected_game_type",
+    "game_house_games",
+    router.query.type as string,
+    {
+      onError: () => toast.error("Error Loading Game"),
+    }
   );
 
   useEffect(() => {
     mutate();
   }, [router.query.type]);
-
-  useEffect(() => {
-    if (!error) return;
-    toast.error("Error Loading Game");
-  }, [error]);
 
   const onStart = async (token: string) => {
     if (!game) return;

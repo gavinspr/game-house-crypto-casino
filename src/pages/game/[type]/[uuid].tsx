@@ -5,19 +5,15 @@ import { GameConnectionModal } from "@/components";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
-import { useGetRunningGame } from "@/hooks";
+import { useFetchRunningGame } from "@/hooks";
 
 const GamePage = () => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
-  const { runningGame, error } = useGetRunningGame(router.query.uuid as string);
-
-  useEffect(() => {
-    if (!error) return;
-
-    toast.error("Error Loading Game");
-  }, [error]);
+  const { runningGame } = useFetchRunningGame(router.query.uuid as string, {
+    onError: () => toast.error("Error Loading Game"),
+  });
 
   useEffect(() => {
     mutate("running_game");
@@ -26,10 +22,7 @@ const GamePage = () => {
   useEffect(() => {
     if (!runningGame?.gameHouseGames) return;
 
-    mutate("selected_game_type", runningGame?.gameHouseGames, {
-      revalidate: true,
-      populateCache: true,
-    });
+    mutate("selected_game_type", runningGame?.gameHouseGames);
   }, [runningGame?.gameHouseGames]);
 
   return (

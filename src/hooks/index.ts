@@ -1,2 +1,4 @@
 export * from "./useCountdown";
-export { default as useGetRunningGame } from "./useGetRunningGame";
+export * from "./useFetchRunningGame";
+export * from "./useFetchRowBySlug";
+export * from "./useFetchTable";

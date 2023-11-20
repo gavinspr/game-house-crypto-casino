@@ -1,9 +1,12 @@
-import useSWR from "swr";
+import useSWR, { SWRConfiguration } from "swr";
 import { supabase } from "@/services";
 import { RunningGameType } from "@/types";
 import { camelize } from "@/utils";
 
-const useGetRunningGame = (uuid: string) => {
+export const useFetchRunningGame = (
+  uuid: string,
+  config?: SWRConfiguration | undefined
+) => {
   const fetcher = async () => {
     if (!uuid) return;
 
@@ -33,7 +36,7 @@ const useGetRunningGame = (uuid: string) => {
   const { data: runningGame, error } = useSWR<
     RunningGameType | undefined,
     Error
-  >("running_game", fetcher);
+  >("running_game", fetcher, { ...config });
 
   return {
     runningGame,
@@ -41,5 +44,3 @@ const useGetRunningGame = (uuid: string) => {
     isLoading: !runningGame && !error,
   };
 };
-
-export default useGetRunningGame;

@@ -10,8 +10,8 @@ import { GameStartCountdown } from "../GameStartCountdown/GameStartCountdown";
 import { archiveGame, subscribeToGameChannel } from "@/helpers";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import useSWR, { useSWRConfig } from "swr";
-import supabaseFetcher from "@/helpers/supabaseFetcher";
+import { useSWRConfig } from "swr";
+import { useFetchRowBySlug } from "@/hooks";
 
 // todo: if the countdown reaches 0 and min players have not joined restart the countdown
 // todo: if more than maxPlayers enter a room they should be kicked or removed before the queue drops
@@ -24,30 +24,21 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
   const { address } = useAccount();
-  const { getRowBySlug } = supabaseFetcher();
 
-  const { data: gameDetails, error: gameDetailsError } = useSWR<
-    GameHouseGameType | null | undefined,
-    Error
-  >(
+  const { data: gameDetails } = useFetchRowBySlug<GameHouseGameType>(
     "selected_game_type",
-    async () =>
-      !router.query.type
-        ? null
-        : await getRowBySlug<GameHouseGameType>(
-            "game_house_games",
-            router.query.type as string
-          ),
-    { revalidateOnMount: false }
+    "game_house_games",
+    router.query.type as string,
+    {
+      revalidateOnMount: false,
+      onError: () => toast.error("Error Loading Game"),
+    }
   );
-
-  if (gameDetailsError) {
-    toast.error("Error Fetching Game Details");
-  }
 
   const gameChannelRef = useRef<RealtimeChannel | undefined>(undefined);
 
   useEffect(() => {
+    // todo: comment
     if (runningGame?.uuid && runningGame.gameHouseGames) {
       const queuingGameChannel: RealtimeChannel = supabase.channel(
         `${runningGame.gameHouseGames.slug}-${runningGame?.uuid}`

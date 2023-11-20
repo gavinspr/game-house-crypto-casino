@@ -3,28 +3,24 @@ import Head from "next/head";
 import styles from "../../styles/Game.module.scss";
 import { GameHouseGameType } from "@/types";
 import { GHLoader, GameCard } from "@/components";
-import useSWR, { useSWRConfig } from "swr";
+import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
-import supabaseFetcher from "@/helpers/supabaseFetcher";
+import { useFetchTable } from "@/hooks";
 
 const GameSelectorPage = () => {
-  const { getTable } = supabaseFetcher();
-  const { data: games, error } = useSWR<Array<GameHouseGameType>, Error>(
-    "game_house_games",
-    getTable<GameHouseGameType>
-  );
-
   const { mutate } = useSWRConfig();
+
+  const { data: games } = useFetchTable<GameHouseGameType>(
+    "game_house_games",
+    "game_house_games",
+    {
+      onError: () => toast.error("Error Loading Games"),
+    }
+  );
 
   useEffect(() => {
     mutate("game_house_games", null, { populateCache: true });
   }, []);
-
-  useEffect(() => {
-    if (!error) return;
-
-    toast.error("Error Loading Games");
-  }, [error]);
 
   return (
     <>
