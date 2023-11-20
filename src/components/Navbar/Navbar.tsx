@@ -21,7 +21,7 @@ export const Navbar = () => {
         }}
       />
       <div className={styles.header}>
-        <div className={styles.logo}>
+        <div className={styles.container}>
           <Link href="/">
             <h1
             // todo: Logo
@@ -29,33 +29,20 @@ export const Navbar = () => {
               GameHouse
             </h1>
           </Link>
+          <div className={styles.linkGroup}>
+            <Link href="/game">
+              <h3>Game</h3>
+            </Link>
+            <Link href="/dashboard">
+              <h3>Dashboard</h3>
+            </Link>
+            <Link href="/governance">
+              <h3>DAO</h3>
+            </Link>
+          </div>
         </div>
-        <div className={styles.buttons}>
-          <Link href="/game">
-            <h2>Game</h2>
-          </Link>
-          {/* <Link href="/">
-            <h2>Governance</h2>
-          </Link>
-          <Link href="/">
-            <h2>Leaderboard</h2>
-          </Link> */}
-          <div
-            onClick={closeAll}
-            className={`${styles.highlight} ${
-              isNetworkSwitchHighlighted ? styles.highlightSelected : ``
-            }`}
-          >
-            <w3m-network-button />
-          </div>
-          <div
-            onClick={closeAll}
-            className={`${styles.highlight} ${
-              isConnectHighlighted ? styles.highlightSelected : ``
-            }`}
-          >
-            <w3m-button />
-          </div>
+        <div onClick={closeAll}>
+          <w3m-button size="sm" />
         </div>
       </div>
     </header>

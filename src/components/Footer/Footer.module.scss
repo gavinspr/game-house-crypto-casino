@@ -1,5 +1,39 @@
-.wrap{
-  background-color: black;
-  opacity: 0.4;
-  height: 50px;
+@mixin group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.wrap {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .linkGroup {
+    @include group;
+
+    a {
+      h4 {
+        font-size: 14px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .socialGroup {
+    @include group;
+
+    svg {
+      font-size: 20px;
+
+      &:hover {
+        transform: scale(1.7);
+        transition: all ease 650ms;
+      }
+    }
+  }
 }

@@ -38,7 +38,6 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
   const gameChannelRef = useRef<RealtimeChannel | undefined>(undefined);
 
   useEffect(() => {
-    // todo: comment
     if (runningGame?.uuid && runningGame.gameHouseGames) {
       const queuingGameChannel: RealtimeChannel = supabase.channel(
         `${runningGame.gameHouseGames.slug}-${runningGame?.uuid}`
@@ -53,9 +52,6 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
         handleRealtimeUpdate,
         handlePresenceSync
       );
-
-      router.query.uuid = runningGame?.uuid;
-      router.replace({ pathname: router.pathname, query: router.query });
     }
   }, [runningGame?.uuid]);
 

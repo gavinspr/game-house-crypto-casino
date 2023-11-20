@@ -6,7 +6,12 @@
   --h: 180;
   --s: 2%;
   --l: 20%;
-  --color-bg: #242424;
+  --color-bg: #1a1429;
+  --color-bg-secondary: #0e0a1a;
+  --color-text: #d9d9d9;
+  --color-accent: #8250c4;
+  --color-hover: #5f2e7e;
+  --color-highlight: #4a405d;
   --color-grey-100: #fff;
   --color-grey-300: #e4e7e7;
   --color-grey-400: #c9cfcf;
@@ -15,11 +20,14 @@
   --color-grey-900: #3b4040;
   --color-grey-950: #272a2a;
   --color-primary: hsl(var(--h), var(--s), var(--l));
+  --shadow-glow: 8px 8px 16px rgba(95, 46, 126, 0.5);
   --shadow-md: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   --shadow-lg: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   --rounded-sm: 0.5rem;
   --rounded-md: 1.5rem;
+  --rounded-lg: 2rem;
+  --wui-color-accent-base-100: var(--color-accent) !important;
 }
 
 * {
@@ -42,9 +50,11 @@ body,
 body {
   min-height: 100%;
   font-family: var(--font-base);
-  background-color: var(--color-bg);
-  color: var(--color-grey-100);
-  background-image: url("/pattern.png");
+  background: linear-gradient(to top, var(--color-bg), #0e0a1a);
+}
+
+footer {
+  background: #0e0a1a;
 }
 
 ul,
@@ -57,7 +67,22 @@ header {
   width: 100%;
 }
 
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button {
+  color: var(--color-text);
+}
+
 a {
   text-decoration: none;
-  color: white;
+}
+
+button {
+  font-weight: 700;
+  border: none;
 }

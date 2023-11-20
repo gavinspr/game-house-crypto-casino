@@ -14,57 +14,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
 
-  padding: 0.75rem 1rem;
-  // padding-bottom: 1.75rem;
-
-  // // height: 75px;
-  // width: 100%;
-  // background: #b70000;
-  // position: fixed;
-  // top: 0;
-
-  .buttons {
+  .container {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 2rem;
 
-    a {
-      font-size: 18px;
-      margin-right: 0.5rem;
-
-      h2 {
-        font-size: 24px;
-        cursor: pointer;
-      }
+    h1 {
+      // temp
+      font-size: 26px;
     }
 
-    .highlight {
-      position: relative;
+    .linkGroup {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.25rem;
 
-      :after {
-        opacity: 0;
-        transition: opacity 0.2s;
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
-        height: 100%;
-        width: 100%;
-        filter: blur(15px);
-        background: linear-gradient(95deg, #7baff3, #3f8ef6, #0b2c56, #4e70d0);
-        background-size: 200% 200%;
-        animation: animateGlow 5s linear infinite;
-      }
-    }
+      a {
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--rounded-sm);
 
-    .highlightSelected {
-      z-index: 5;
+        &:hover {
+          background: rgba(95, 46, 126, 0.5);
+        }
 
-      ::after {
-        opacity: 0.5 !important;
+        h3 {
+          cursor: pointer;
+        }
       }
     }
   }
