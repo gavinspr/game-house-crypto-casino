@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./LandingView.module.scss";
 import Image from "next/image";
+import Link from "next/link";
+import { PINNED_ASSETS } from "@/constants";
 
 export const LandingView = () => {
   return (
@@ -13,18 +15,20 @@ export const LandingView = () => {
           Reap the Rewards.
         </p>
         <div className={styles.buttonGroup}>
-          <button>Play Now</button>
+          <Link href="/game">
+            <button>Play Now</button>
+          </Link>
           <button
           // todo:
           >
-            Get Token
+            Get GH Token
           </button>
         </div>
       </div>
       <Image
-        src={"/landing_view_graphic.jpeg"} // todo: put in IPFS and retrieve from IPFS
-        width={650}
-        height={600}
+        src={PINNED_ASSETS.landingPageGraphic}
+        width={550}
+        height={500}
         alt="Game house landing image"
       />
     </div>

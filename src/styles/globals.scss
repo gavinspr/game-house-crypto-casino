@@ -51,8 +51,10 @@ body {
   min-height: 100%;
   font-family: var(--font-base);
   background: linear-gradient(to top, var(--color-bg), #0e0a1a);
+  background-attachment: fixed;
 }
 
+header,
 footer {
   background: #0e0a1a;
 }
@@ -74,6 +76,7 @@ h3,
 h4,
 p,
 a,
+span,
 button {
   color: var(--color-text);
 }

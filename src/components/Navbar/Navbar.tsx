@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
+import Image from "next/image";
+import { PINNED_ASSETS } from "@/constants";
 
 export const Navbar = () => {
   const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
@@ -23,15 +25,16 @@ export const Navbar = () => {
       <div className={styles.header}>
         <div className={styles.container}>
           <Link href="/">
-            <h1
-            // todo: Logo
-            >
-              GameHouse
-            </h1>
+            <Image
+              src={PINNED_ASSETS.appLogo}
+              alt="Game house logo"
+              width={300}
+              height={50}
+            />
           </Link>
           <div className={styles.linkGroup}>
             <Link href="/game">
-              <h3>Game</h3>
+              <h3>Games</h3>
             </Link>
             <Link href="/dashboard">
               <h3>Dashboard</h3>

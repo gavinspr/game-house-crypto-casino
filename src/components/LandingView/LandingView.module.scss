@@ -1,6 +1,7 @@
 .wrap {
   display: flex;
   width: 90%;
+  margin: 100px 0;
 
   .container {
     display: flex;
@@ -10,11 +11,11 @@
     gap: 0.75rem;
 
     h1 {
-      font-size: 56px;
+      font-size: 48px;
     }
 
     p {
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .buttonGroup {
@@ -23,7 +24,7 @@
       gap: 2rem;
 
       button {
-        font-size: 20px;
+        font-size: 18px;
         padding: 1rem 1.5rem;
         border-radius: 0.75rem;
         background: var(--color-hover);

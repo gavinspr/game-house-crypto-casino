@@ -1,0 +1,33 @@
+.wrap {
+  width: 100%;
+  margin-top: 2rem;
+
+  table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+    table-layout: fixed;
+
+    thead {
+      font-size: 18px;
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background: var(--color-hover);
+        }
+
+        td {
+          padding: 0.5rem 0;
+          font-size: 18px;
+
+          .tokenDetails {
+            display: flex;
+            gap: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
