@@ -1,7 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import "@/styles/globals.scss";
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout/Layout";
 import { WagmiConfig } from "wagmi";
 import { wagmiConfig } from "@/configs";
 

@@ -48,9 +48,6 @@ body,
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   font-family: var(--font-base);
   background: linear-gradient(to top, var(--color-bg), #0e0a1a);
   background-attachment: fixed;
