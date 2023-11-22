@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
-import styles from "../../../styles/Game.module.scss"; // todo: make style sheet
+import styles from "../../../styles/GameTypePage.module.scss"; // todo: make style sheet
 import { GameHouseGameType } from "@/types";
 import { GHLoader, GameTokenTypeTile } from "@/components";
 import { useRouter } from "next/router";

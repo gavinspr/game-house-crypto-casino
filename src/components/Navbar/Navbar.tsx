@@ -36,10 +36,13 @@ export const Navbar = () => {
             <Link href="/game">
               <h3>Games</h3>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/">
+              <h3>Lottery</h3>
+            </Link>
+            <Link href="/">
               <h3>Dashboard</h3>
             </Link>
-            <Link href="/governance">
+            <Link href="/">
               <h3>DAO</h3>
             </Link>
           </div>

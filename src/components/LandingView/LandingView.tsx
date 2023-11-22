@@ -10,9 +10,10 @@ export const LandingView = () => {
       <div className={styles.container}>
         <h1>Peer 2 Peer Crypto Gaming Like Never Before!</h1>
         <p>
-          Revolutionize Your Gaming Experience: Explore Decentralized Peer 2
-          Peer Crypto Gaming & Gambling. Be the Bankroller, Play fun games, and
-          Reap the Rewards.
+          Play at the first true decentralized casino, where you have
+          the power to be the house! Bankroll games and earn payouts, or just
+          compete and win against your fellow players. Your victory awaits —
+          don't miss out, play today!
         </p>
         <div className={styles.buttonGroup}>
           <Link href="/game">

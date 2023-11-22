@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
-import styles from "../../styles/Game.module.scss";
+import styles from "../../styles/GameSelectorPage.module.scss";
 import { GameHouseGameType } from "@/types";
 import { GHLoader, GameCard } from "@/components";
 import { useSWRConfig } from "swr";
@@ -28,15 +28,15 @@ const GameSelectorPage = () => {
         <title>GameHouse | Crypto Gaming</title>
       </Head>
       <main className={styles.main}>
-        {games && games.length > 0 ? (
-          <div className={styles.gamesGrid}>
-            {games?.map((game: GameHouseGameType) => (
-              <GameCard key={`${game.name}`} gameDetails={game} />
-            ))}
-          </div>
-        ) : (
-          <GHLoader />
-        )}
+          {games && games.length > 0 ? (
+            <div className={styles.gamesGrid}>
+              {games?.map((game: GameHouseGameType) => (
+                <GameCard key={`${game.name}`} gameDetails={game} />
+              ))}
+            </div>
+          ) : (
+            <GHLoader />
+          )}
       </main>
     </>
   );

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
-import styles from "../../../styles/Game.module.scss"; // todo: make style sheet
+import styles from "../../../styles/RunningGamePage.module.scss"; // todo: make style sheet
 import { GameConnectionModal } from "@/components";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 import { toast } from "react-toastify";
 import { useFetchRunningGame } from "@/hooks";
 
-const GamePage = () => {
+const RunningGamePage = () => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
@@ -37,4 +37,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default RunningGamePage;
