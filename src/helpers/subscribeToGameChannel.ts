@@ -37,6 +37,7 @@ export const subscribeToGameChannel = (
         return;
       }
 
+      // todo: if playerAddress already present do not re-add
       const userStatus = {
         user: playerAddress,
         online_at: new Date().toISOString(),

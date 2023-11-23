@@ -12,7 +12,7 @@ export default function Home() {
       <Head>
         <title>GameHouse | Crypto Gaming</title>
       </Head>
-      <main className={styles.main}>
+      <main className={styles.wrap}>
         <LandingView />
         <PopularGamesHomeList />
         <LeaderboardView />

@@ -46,7 +46,7 @@ const GameTypePage = () => {
       <Head>
         <title>GameHouse | Crypto Gaming</title>
       </Head>
-      <main className={styles.main}>
+      <main className={styles.wrap}>
         {!game ? (
           <GHLoader />
         ) : (

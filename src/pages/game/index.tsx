@@ -27,16 +27,16 @@ const GameSelectorPage = () => {
       <Head>
         <title>GameHouse | Crypto Gaming</title>
       </Head>
-      <main className={styles.main}>
-          {games && games.length > 0 ? (
-            <div className={styles.gamesGrid}>
-              {games?.map((game: GameHouseGameType) => (
-                <GameCard key={`${game.name}`} gameDetails={game} />
-              ))}
-            </div>
-          ) : (
-            <GHLoader />
-          )}
+      <main className={styles.wrap}>
+        {games && games.length > 0 ? (
+          <div className={styles.gamesGrid}>
+            {games?.map((game: GameHouseGameType) => (
+              <GameCard key={`${game.name}`} gameDetails={game} />
+            ))}
+          </div>
+        ) : (
+          <GHLoader />
+        )}
       </main>
     </>
   );

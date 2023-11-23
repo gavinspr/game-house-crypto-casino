@@ -30,6 +30,7 @@ export const Navbar = () => {
               alt="Game house logo"
               width={300}
               height={50}
+              priority
             />
           </Link>
           <div className={styles.linkGroup}>

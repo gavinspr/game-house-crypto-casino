@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { MutableRefObject, useEffect } from "react";
 import styles from "./GameConnectionModal.module.scss";
 import { FadeLoader, HashLoader, RiseLoader, BeatLoader } from "react-spinners";
 import { GameHouseGameType, RunningGameType } from "@/types";
@@ -7,7 +7,7 @@ import { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "@/services";
 import { useAccount } from "wagmi";
 import { GameStartCountdown } from "../GameStartCountdown/GameStartCountdown";
-import { archiveGame, subscribeToGameChannel } from "@/helpers";
+import { archiveGame } from "@/helpers";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useSWRConfig } from "swr";
@@ -18,9 +18,13 @@ import { useFetchRowBySlug } from "@/hooks";
 
 type PropTypes = {
   runningGame: RunningGameType | undefined;
+  gameChannelRef: MutableRefObject<RealtimeChannel | undefined>;
 };
 
-export const GameConnectionModal = ({ runningGame }: PropTypes) => {
+export const GameConnectionModal = ({
+  runningGame,
+  gameChannelRef,
+}: PropTypes) => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
   const { address } = useAccount();
@@ -35,26 +39,6 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
     }
   );
 
-  const gameChannelRef = useRef<RealtimeChannel | undefined>(undefined);
-
-  useEffect(() => {
-    if (runningGame?.uuid && runningGame.gameHouseGames) {
-      const queuingGameChannel: RealtimeChannel = supabase.channel(
-        `${runningGame.gameHouseGames.slug}-${runningGame?.uuid}`
-      );
-
-      gameChannelRef.current = queuingGameChannel;
-
-      subscribeToGameChannel(
-        queuingGameChannel,
-        address,
-        runningGame?.uuid,
-        handleRealtimeUpdate,
-        handlePresenceSync
-      );
-    }
-  }, [runningGame?.uuid]);
-
   useEffect(() => {
     if (!runningGame || !runningGame.gameHouseGames) return;
     // If game has not reached maxPlayers keep users in queue screen
@@ -66,15 +50,6 @@ export const GameConnectionModal = ({ runningGame }: PropTypes) => {
     // ? should logic just go in handlePresenceSync
     // todo: start game !! ^^
   }, [runningGame?.connectedPlayerCount]);
-
-  const handleRealtimeUpdate = (payload: any) => {
-    const updatedGameData = camelize<RunningGameType>(payload.new);
-    mutate("running_game", updatedGameData, false);
-  };
-
-  const handlePresenceSync = (payload: any) => {
-    // todo:
-  };
 
   const handleLeaveQueue = async () => {
     if (!runningGame) return;

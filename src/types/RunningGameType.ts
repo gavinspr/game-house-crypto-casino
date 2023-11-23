@@ -7,6 +7,12 @@ export type RunningGameStatusType =
   | "stopped"
   | "uninitiated";
 
+export type GameChatMessage = {
+  player: any;
+  time: string;
+  message: string;
+};
+
 export type RunningGameType = {
   uuid: string;
   createdAt: string;
@@ -20,4 +26,5 @@ export type RunningGameType = {
   endedAt: string | null;
   gameDetailsId: number;
   gameHouseGames?: GameHouseGameType;
+  chat: Array<GameChatMessage>;
 };

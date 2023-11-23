@@ -10,3 +10,5 @@ export * from "./PopularGamesHomeList/PopularGamesHomeList";
 export * from "./LeaderboardView/LeaderboardView";
 export * from "./Toggle/Toggle";
 export * from "./PublicGamesHistoryTable/PublicGamesHistoryTable";
+export * from "./GameChat/GameChat";
+export * from "./GamePortal/GamePortal";
