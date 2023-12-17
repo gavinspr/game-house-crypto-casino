@@ -1,25 +1,42 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.20;
 
 import "./IRunningGameMetadata.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import {ERC721URIStorage, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-abstract contract BaseGame is ERC721URIStorage, IRunningGameMetadata {
+abstract contract RunningGame is
+    Ownable,
+    ERC721URIStorage,
+    IRunningGameMetadata
+{
     uint256 private _runningGameIdCounter;
 
     mapping(uint256 => RunningGameMetadata) private _runningGameMetadata;
 
-    function mintRunningGame(address receiver) public {
-        // todo: needs AC
-        _safeMint(receiver, _runningGameIdCounter++);
+    function mintRunningGame(string calldata token) external onlyOwner {
+        uint256 newGameId = _runningGameIdCounter;
 
-        // todo: emit
+        _safeMint(owner(), _runningGameIdCounter++);
+
+        RunningGameMetadata storage g = _runningGameMetadata[newGameId];
+        g.id = newGameId;
+        g.status = RunningGameStatus.Queuing;
+        g.gameToken = token;
+
+        emit RunningGameCreated(newGameId);
+    }
+
+    function getGameMetadata(
+        uint256 runningGameId
+    ) external view returns (RunningGameMetadata memory) {
+        return _runningGameMetadata[runningGameId];
     }
 
     function updateRunningGameStatus(
         uint256 runningGameId,
         RunningGameStatus newStatus
-    ) public {
+    ) external {
         // todo: needs AC
         _runningGameMetadata[runningGameId].status = newStatus;
 
@@ -30,7 +47,7 @@ abstract contract BaseGame is ERC721URIStorage, IRunningGameMetadata {
         uint256 runningGameId,
         string calldata endedAt,
         RunningGameResults calldata results
-    ) public {
+    ) external {
         // todo: needs AC
 
         RunningGameMetadata storage g = _runningGameMetadata[runningGameId];
@@ -44,7 +61,7 @@ abstract contract BaseGame is ERC721URIStorage, IRunningGameMetadata {
     function setGameURI(
         uint256 runningGameId,
         string calldata _runningGameURI
-    ) public {
+    ) external {
         // todo: needs AC
 
         _setTokenURI(runningGameId, _runningGameURI);

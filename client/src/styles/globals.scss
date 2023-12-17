@@ -87,6 +87,8 @@ a {
 button {
   font-weight: 700;
   border: none;
+  background: var(--color-hover);
+  cursor: pointer;
 }
 
 main {

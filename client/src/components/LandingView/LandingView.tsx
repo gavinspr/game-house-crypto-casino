@@ -13,7 +13,7 @@ export const LandingView = () => {
           Play at the first true decentralized casino, where you have
           the power to be the house! Bankroll games and earn payouts, or just
           compete and win against your fellow players. Your victory awaits —
-          don't miss out, play today!
+          don&apos;t miss out, play today!
         </p>
         <div className={styles.buttonGroup}>
           <Link href="/game">

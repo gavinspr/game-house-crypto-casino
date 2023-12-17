@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.20;
 
 interface IRunningGameMetadata {
     enum RunningGameStatus {
+        Queuing,
         Open,
         Closed,
         Stopped
@@ -19,7 +20,7 @@ interface IRunningGameMetadata {
         string startedAt;
         string endedAt;
         RunningGameStatus status;
-        string gameType;
+        // string gameType;
         string gameToken;
         RunningGameResults results;
     }

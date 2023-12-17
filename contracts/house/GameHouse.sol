@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/governance/Governor.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
@@ -13,13 +13,6 @@ import "../token/GameHouseToken.sol";
 import "./Cashier.sol";
 import "./Dealer.sol";
 
-enum GameTypeStatus {
-    Beta,
-    Open,
-    Paused,
-    Closed
-}
-
 // todo:
 // Governor,
 // GovernorCountingSimple,
@@ -27,17 +20,42 @@ enum GameTypeStatus {
 // GovernorVotesQuorumFraction,
 // GovernorTimelockControl,
 contract GameHouse is Dealer, Cashier {
+    enum GameTypeStatus {
+        Beta,
+        Open,
+        Paused,
+        Closed
+    }
+
     GameHouseToken public gameHouseToken = new GameHouseToken();
+    // GameHouseLottery public gameHouseLottery = new GameHouseLottery(); // todo
 
-    // todo: comment
-    uint256 private _maintenanceFee = 1; // Percent
-    address private _maintenanceAddress;
-
-    // todo: comment
+    /**
+     * This only applies to player wins
+     * This will be collected when a player collects their winnings
+     * All tokens collected by the house are used for the purpose of increasing the size of payout pools for players
+     * As well as any future DAO decisions that could be made about the house funds by GH DAO token holders
+     * The DAO can vote to increase or decrease it with a proposal
+     */
     uint256 private _houseFee = 1; // Percent
 
-    // todo: comment
-    uint256 private _houseClaim = 50; // Percent
+    /**
+     * This only applies to player losses
+     * Tokens that are lost in games will be split between the house and players bankrolling that game, as well as the maintenanceFee if there is one
+     * All tokens collected by the house are used for the purpose of increasing the size of payout pools for players
+     * As well as any future DAO decisions that could be made about the house funds by GH DAO token holders
+     * Ideally the _houseClaim is initially set high to allow the payout pools to accumulate tokens
+     * As time progresses the DAO can vote to decrease this to raise the payout to the bankrolling players
+     */
+    uint256 private _houseClaim = 75; // Percent
+
+    /**
+     * This only applies to player losses
+     * These tokens are sent to the contract deployer (aka the developer) for the purpose of maintaining and developing the project
+     * The DAO can vote to increase or decrease it with a proposal
+     */
+    uint256 private _maintenanceFee = 2; // Percent
+    address private _maintenanceAddress;
 
     /** gameTypeAddress => status */
     mapping(address => GameTypeStatus) private _gameTypeStatus;

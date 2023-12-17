@@ -1,4 +1,3 @@
-import { formatEther, parseEther } from "viem";
 import { ethers } from "hardhat";
 import { Contract, ContractFactory } from "ethers";
 
@@ -14,6 +13,8 @@ async function main() {
 
   console.log(gameHouse.address, "New GameHouse Contract");
   console.log(token, "New GameHouse Token");
+
+  // todo: script to ask if it should update envs
 }
 
 main().catch((error) => {

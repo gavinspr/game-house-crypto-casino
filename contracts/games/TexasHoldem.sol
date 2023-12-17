@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.20;
 
-import "./BaseGame.sol";
+import "./RunningGame.sol";
 
-contract TexasHoldem is BaseGame {
-    constructor() ERC721("Texas-Holdem", "TEXAS-HOLDEM") {}
+contract TexasHoldem is RunningGame {
+    constructor(
+        address house
+    ) Ownable(house) ERC721("Texas-Holdem", "TEXAS-HOLDEM") {}
 }

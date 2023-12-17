@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "../games/IRunningGameMetadata.sol";
 
 interface IGame {
-    function mintRunningGame() external;
+    function mintRunningGame(string calldata token) external;
 
     function tokenURI(uint256 runningGameId) external returns (string memory);
 
@@ -21,9 +21,11 @@ interface IGame {
 }
 
 abstract contract Dealer is IERC721Receiver {
-    function mintRunningGame(address gameTypeAddress) public {
-        // todo: needs AC
-        return IGame(gameTypeAddress).mintRunningGame();
+    function mintRunningGame(
+        address gameTypeAddress,
+        string calldata token
+    ) external {
+        return IGame(gameTypeAddress).mintRunningGame(token);
     }
 
     function updateRunningGameStatus(

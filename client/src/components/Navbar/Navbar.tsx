@@ -38,6 +38,10 @@ export const Navbar = () => {
               <h3>Games</h3>
             </Link>
             <Link href="/">
+              <h3>Spin</h3>
+              {/*//  todo: badge with number of spin tickets available */}
+            </Link>
+            <Link href="/">
               <h3>Lottery</h3>
             </Link>
             <Link href="/">

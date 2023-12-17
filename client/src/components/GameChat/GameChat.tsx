@@ -66,8 +66,9 @@ export const GameChat = ({ runningGame, gameChannelRef }: PropTypes) => {
           </div>
 
           <div className={styles.content}>
-            {runningGame.chat.map((message: GameChatMessage) => (
+            {runningGame.chat.map((message: GameChatMessage, index: number) => (
               <div
+                key={index} // todo
                 className={`${styles.messageWrap} ${
                   message.player === address && styles.sender
                 }`}

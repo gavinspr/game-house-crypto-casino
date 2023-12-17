@@ -1,0 +1,62 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IRunningGameMetadata",
+  "sourceName": "contracts/games/IRunningGameMetadata.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "runningGameId",
+          "type": "uint256"
+        }
+      ],
+      "name": "RunningGameCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "runningGameId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum IRunningGameMetadata.RunningGameStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "name": "RunningGameStatusChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "runningGameId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "winner",
+          "type": "address"
+        }
+      ],
+      "name": "RunningGameWon",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

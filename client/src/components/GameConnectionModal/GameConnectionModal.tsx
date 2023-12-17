@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect } from "react";
+import React, { MutableRefObject, useEffect, useState } from "react";
 import styles from "./GameConnectionModal.module.scss";
 import { FadeLoader, HashLoader, RiseLoader, BeatLoader } from "react-spinners";
 import { GameHouseGameType, RunningGameType } from "@/types";
@@ -25,6 +25,8 @@ export const GameConnectionModal = ({
   runningGame,
   gameChannelRef,
 }: PropTypes) => {
+  const [isGameReady, setIsGameReady] = useState<boolean>(false);
+
   const router = useRouter();
   const { mutate } = useSWRConfig();
   const { address } = useAccount();
@@ -41,6 +43,7 @@ export const GameConnectionModal = ({
 
   useEffect(() => {
     if (!runningGame || !runningGame.gameHouseGames) return;
+
     // If game has not reached maxPlayers keep users in queue screen
     if (
       runningGame.connectedPlayerCount !== runningGame.gameHouseGames.maxPlayers
@@ -49,6 +52,7 @@ export const GameConnectionModal = ({
 
     // ? should logic just go in handlePresenceSync
     // todo: start game !! ^^
+    setIsGameReady(true);
   }, [runningGame?.connectedPlayerCount]);
 
   const handleLeaveQueue = async () => {
@@ -89,6 +93,8 @@ export const GameConnectionModal = ({
     router.push(`/game/${path}`);
   };
 
+  // todo: if the countdown reaches 0 or the max players number is reached countdown should turn to say "game starting shortly" while game is being rendered
+
   return (
     <div className={styles.wrap}>
       {runningGame ? (
@@ -99,8 +105,15 @@ export const GameConnectionModal = ({
           <p className={styles.playerCount}>
             {runningGame.connectedPlayerCount}/{gameDetails?.maxPlayers}
           </p>
-          <GameStartCountdown startTime={runningGame.beginAt} />
-          <HashLoader color="#d7b736" className={styles.loader} />
+          <GameStartCountdown
+            startTime={runningGame.beginAt}
+            freeze={isGameReady}
+          />
+          <HashLoader
+            color="#d7b736"
+            // className={styles.loader}
+            // style={{ visibility: isGameReady ? "hidden" : "visible" }}
+          />
           <button onClick={handleLeaveQueue}>Leave Queue</button>
         </>
       ) : (

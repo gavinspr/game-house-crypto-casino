@@ -9,6 +9,7 @@ import {
   optimism,
   polygon,
   telos,
+  telosTestnet,
 } from "wagmi/chains";
 
 const chains = [
@@ -21,6 +22,7 @@ const chains = [
   gnosis,
   fantom,
   telos,
+  telosTestnet,
 ];
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";

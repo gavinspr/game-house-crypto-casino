@@ -29,10 +29,11 @@
     "viem": "^1.19.8"
   },
   "scripts": {
-    "compile": "npx hardhat compile",
+    "compile": "npx hardhat compile && cp -r artifacts/contracts/* client/src/configs/contracts",
     "size": "npx hardhat compile && hardhat size-contracts",
     "lint": "npx hardhat check",
-    "deploy:bsc-test": "npx hardhat compile && npx hardhat run --network bscTest scripts/deploy.ts",
-    "deploy:telos-test": "npx hardhat compile && npx hardhat run --network telosTest scripts/deploy.ts"
+    "deploy:bsc-test": "npx hardhat compile && npx hardhat run --network bscTest scripts/deployHouse.ts",
+    "deploy:telos-test": "yarn compile && npx hardhat run --network telosTest scripts/deployHouse.ts",
+    "deploy:game-telos-test": "yarn compile && npx hardhat run --network telosTest scripts/deployGame.ts"
   }
 }
